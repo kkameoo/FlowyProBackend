@@ -69,7 +69,7 @@
 
 <div align="center">
 
-위치
+<img width="2560" height="1400" alt="Image" src="https://github.com/user-attachments/assets/c4c91b05-62da-40a9-a5b1-ec88e9f230bc" />
 
 
 <br/>
