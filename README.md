@@ -24,13 +24,13 @@
 
 <div align="center">
    
-![Image](https://github.com/user-attachments/assets/c94341dd-d4ca-4c57-99f5-e174e404ed0a)
+![Image](https://github.com/user-attachments/assets/4f8845d7-a795-4b1c-90f5-36b2bfd463ee)
 
 
 
 <br/>
 
-링크위치
+[링크위치](https://docs.google.com/spreadsheets/d/1k0DuzEiUNP7o6fBI2Ge4TnfXJaDcRdREjvrq7ZMRwwc/edit?gid=0#gid=0)
 </div>
 
 <br>
