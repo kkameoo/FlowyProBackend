@@ -4,9 +4,9 @@
 
 ## 🙋🏻팀원
 
-| **한동길** | **xxx** |
-| :------: |  :------: |
-| [<img src="https://avatars.githubusercontent.com/kkameoo" height=150 width=150> <br/> @kkameoo](https://github.com/kkameoo) | 
+| **한동길** | **andendeun** | **xunapxa** | **ehguss** |
+| :------: |  :------: |  :------: |  :------: |
+| [<img src="https://avatars.githubusercontent.com/kkameoo" height=150 width=150> <br/> @kkameoo](https://github.com/kkameoo) | [<img width="150" height="150" alt="Image" src="https://github.com/user-attachments/assets/926f52f2-90e1-4039-9589-e20e0cf2c451" /> <br/> @andendeun](https://github.com/andendeun) | [<img width="150" height="150" alt="Image" src="https://github.com/user-attachments/assets/4a57e7a5-85eb-4e1d-9c39-3e114e31fda1" /> <br/> @xunapxa](https://github.com/xunapxa) | [<img width="150" height="150" alt="Image" src="https://github.com/user-attachments/assets/5adab4bd-eed4-4468-a517-e7fea602f5ad" /> <br/> @ehguss](https://github.com/ehguss) | 
 
 <br/>
 
