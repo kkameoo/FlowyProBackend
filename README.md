@@ -51,7 +51,7 @@
 
 
 ## 🧱 ERD
-위치
+<img width="2057" height="1203" alt="Image" src="https://github.com/user-attachments/assets/5d439a1b-013c-452c-949f-0ef1da976aaa" />
 
 <br/>
 
@@ -59,7 +59,7 @@
 <div align="center">
 <br>
    
-링크위치
+[erd cloud 위치](https://www.erdcloud.com/d/FGTWyb9Puh6hMhLyF)
 
 </div>
 <br>
