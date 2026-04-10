@@ -30,7 +30,7 @@
 
 <br/>
 
-[링크위치](https://docs.google.com/spreadsheets/d/1k0DuzEiUNP7o6fBI2Ge4TnfXJaDcRdREjvrq7ZMRwwc/edit?gid=0#gid=0)
+[요구사항 명세서 docs 위치](https://docs.google.com/spreadsheets/d/1k0DuzEiUNP7o6fBI2Ge4TnfXJaDcRdREjvrq7ZMRwwc/edit?gid=0#gid=0)
 </div>
 
 <br>
@@ -43,8 +43,8 @@
 
 <br>
 
-링크위치
-
+[WBS 백로그형식](https://github.com/orgs/highfiveAI/projects/3/views/1)
+[WBS 로드맵형식(왼쪽 화살표 누르면 해당 날짜로 이동)](https://github.com/orgs/highfiveAI/projects/3/views/4)
 
 </div>
 
@@ -74,7 +74,7 @@
 
 <br/>
 
-링크위치
+[API명세서 docs 위치](https://docs.google.com/spreadsheets/d/1k0DuzEiUNP7o6fBI2Ge4TnfXJaDcRdREjvrq7ZMRwwc/edit?gid=1411027358#gid=1411027358)
 
 </div>
 
