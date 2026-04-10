@@ -44,7 +44,8 @@
 <br>
 
 [WBS 백로그형식](https://github.com/orgs/highfiveAI/projects/3/views/1)
-[WBS 로드맵형식(왼쪽 화살표 누르면 해당 날짜로 이동)](https://github.com/orgs/highfiveAI/projects/3/views/4)
+
+[WBS 로드맵형식 (왼쪽 화살표 누르면 해당 날짜로 이동)](https://github.com/orgs/highfiveAI/projects/3/views/4)
 
 </div>
 
