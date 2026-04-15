@@ -25,6 +25,7 @@ from fastapi.responses import JSONResponse
 import mutagen
 from app.models.calendar import Calendar
 from app.models.meeting_user import MeetingUser
+from app.schemas.stt_schema import STTResponse, ProjectUsersResponse, MessageResponse
 
 router = APIRouter()
 
@@ -274,24 +275,36 @@ async def run_stt_in_background(
         except Exception as e:
             print(f"[BackgroundTask] 파일 삭제 오류: {e}", flush=True)
 
-@router.post("/")
+@router.post(
+    "/",
+    response_model=STTResponse,
+    summary="회의 음성 파일 STT 변환 및 분석",
+    description="""
+    음성 파일을 업로드하면 백그라운드에서 STT 변환 및 회의 분석을 수행합니다.
+    
+    - Whisper API로 음성 → 텍스트 변환
+    - GPT로 텍스트 후처리
+    - 요약 / 피드백 / 할 일 추출 / 예정 회의 등록
+    - 지원 형식: flac, m4a, mp3, mp4, mpeg, mpga, oga, ogg, wav, webm
+    """
+)
 async def stt_api(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(..., description="지원 형식: flac, m4a, mp3, mp4, mpeg, mpga, oga, ogg, wav, webm"),
-    project_id: str = Form(...),
-    meeting_id: str = Form(...),
-    meeting_title: str = Form(...),
-    meeting_agenda: str = Form(...),
-    meeting_date: str = Form(...),
-    host_id: str = Form(...),
-    host_name: str = Form(...),
-    host_email: str = Form(...),
-    host_role: str = Form(...),
-    attendees_ids: List[str] = Form(...),
-    attendees_name: List[str] = Form(...),
-    attendees_email: List[str] = Form(...),
-    attendees_role: List[str] = Form(...),
-    subject: str = Form(...),
+    project_id: str = Form(..., description="프로젝트 ID"),
+    meeting_id: str = Form(..., description="회의 ID (신규 생성 시 빈 문자열)"),
+    meeting_title: str = Form(..., description="회의 제목"),
+    meeting_agenda: str = Form(..., description="회의 안건"),
+    meeting_date: str = Form(..., description="회의 날짜 (형식: YYYY-MM-DD HH:MM:SS)"),
+    host_id: str = Form(..., description="회의장 사용자 ID"),
+    host_name: str = Form(..., description="회의장 이름"),
+    host_email: str = Form(..., description="회의장 이메일"),
+    host_role: str = Form(..., description="회의장 역할"),
+    attendees_ids: List[str] = Form(..., description="참석자 ID 목록 (쉼표 구분 가능)"),
+    attendees_name: List[str] = Form(..., description="참석자 이름 목록"),
+    attendees_email: List[str] = Form(..., description="참석자 이메일 목록"),
+    attendees_role: List[str] = Form(..., description="참석자 역할 목록"),
+    subject: str = Form(..., description="회의 주제"),
     db: AsyncSession = Depends(get_db_session)
 ):
     print("[stt_api] ====== 입력 파라미터 디버깅 ======")
@@ -351,7 +364,12 @@ async def stt_api(
     )
     return {"message": "분석 작업이 백그라운드에서 시작되었습니다."}
 
-@router.get("/project-users/{project_id}")
+@router.get(
+    "/project-users/{project_id}",
+    response_model=ProjectUsersResponse,
+    summary="프로젝트 참석자 목록 조회",
+    description="프로젝트 ID로 해당 프로젝트의 참석자 목록을 조회합니다."
+)
 async def get_project_users(
     project_id: str,
     db: AsyncSession = Depends(get_db_session)
@@ -387,13 +405,23 @@ async def get_project_users(
     
     return {"users": users}
 
-@router.post("/meeting/send-update-email")
+@router.post(
+    "/meeting/send-update-email",
+    response_model=MessageResponse,
+    summary="회의 업데이트 이메일 발송",
+    description="회의 정보가 변경되었을 때 참석자들에게 업데이트 이메일을 발송합니다."
+)
 async def send_update_email_api(data: dict = Body(...)):
     # info_n, dt, subj, update_dt, meeting_id 등 프론트에서 넘긴 값 사용
     await send_meeting_update_email(data)
     return {"message": "메일 전송 완료"}
 
-@router.post("/meeting/send-meeting-result")
+@router.post(
+    "/meeting/send-meeting-result",
+    response_model=MessageResponse,
+    summary="회의 결과 이메일 발송",
+    description="회의 분석 결과를 참석자들에게 이메일로 발송합니다."
+)
 async def send_meeting_result(meeting_info: dict):
     await send_meeting_email_without_update(meeting_info)
     return JSONResponse(content={"message": "메일 전송 완료"})

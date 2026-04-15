@@ -21,6 +21,7 @@ from sqlalchemy import select
 from app.services.docs_service.draft_log_crud import get_draft_logs_by_meeting_id
 from app.schemas.meeting import DraftLogResponse
 from app.services.docs_service.orchestration import super_agent_for_meeting
+from app.schemas.docs_schema import DeleteResponse, DownloadLinkResponse
 
 router = APIRouter()
 
@@ -53,7 +54,7 @@ class SuperAgentRequest(BaseModel):
     meeting_text: str
     meeting_id: Optional[str] = None
 
-@router.post("/recommend", response_model=Dict[str, Any], dependencies=[Depends(require_company_admin)])
+@router.post("/recommend", response_model=Dict[str, Any], summary="문서 추천", dependencies=[Depends(require_company_admin)])
 async def recommend_documents_route(request: DocumentRecommendRequest):
     """
     역할 또는 업무 내용을 기반으로 관련 문서를 추천합니다.
@@ -69,7 +70,7 @@ async def recommend_documents_route(request: DocumentRecommendRequest):
             detail=f"문서 추천 중 오류 발생: {str(e)}"
         )
 
-@router.post("/", response_model=DocumentResponse)
+@router.post("/", summary="문서 생성", response_model=DocumentResponse)
 async def create_new_document(
     update_user_id: Annotated[UUID, Form(description="업로드 사용자 ID")],
     doc_type: Annotated[str, Form(description="문서 유형")],
@@ -85,7 +86,7 @@ async def create_new_document(
     """
     return await create_document(db, file, doc_type, update_user_id)
 
-@router.put("/{doc_id}", response_model=DocumentResponse)
+@router.put("/{doc_id}", summary="문서 수정", response_model=DocumentResponse)
 async def update_existing_document(
     doc_id: UUID,
     update_user_id: Annotated[UUID, Form(description="수정 사용자 ID")],
@@ -101,7 +102,7 @@ async def update_existing_document(
     """
     return await update_document(db, doc_id, file, update_user_id)
 
-@router.get("/", response_model=List[DocumentResponse], dependencies=[Depends(require_company_admin)])
+@router.get("/", response_model=List[DocumentResponse], summary="모든 문서 목록 조회", dependencies=[Depends(require_company_admin)])
 async def get_all_documents(
     skip: int = 0,
     limit: int = 200,
@@ -115,7 +116,7 @@ async def get_all_documents(
     """
     return await get_documents(db, skip, limit)
 
-@router.get("/{doc_id}", response_model=DocumentResponse)
+@router.get("/{doc_id}", summary="문서 조회", response_model=DocumentResponse)
 async def get_single_document(
     doc_id: UUID,
     db: Session = Depends(get_db)
@@ -130,7 +131,7 @@ async def get_single_document(
         raise HTTPException(status_code=404, detail="문서를 찾을 수 없습니다")
     return doc
 
-@router.delete("/{doc_id}")
+@router.delete("/{doc_id}", summary="문서 삭제", response_model=DeleteResponse)
 async def delete_existing_document(
     doc_id: UUID,
     db: Session = Depends(get_db)
@@ -145,8 +146,10 @@ async def delete_existing_document(
         return {"message": "문서가 성공적으로 삭제되었습니다"}
     raise HTTPException(status_code=500, detail="문서 삭제 중 오류가 발생했습니다")
 
-@router.get("/download/{interdocs_id}")
+
+@router.get("/download/{interdocs_id}", summary="문서 다운로드 링크 조회", response_model=DownloadLinkResponse)
 async def get_doc_download_link(interdocs_id: UUID, db: AsyncSession = Depends(get_db_session)):
+    # 기존 코드 그대로...
     result = await db.execute(select(Interdoc.interdocs_path).where(Interdoc.interdocs_id == interdocs_id))
     interdocs_path = result.scalar_one_or_none()
     if not interdocs_path:
@@ -154,7 +157,7 @@ async def get_doc_download_link(interdocs_id: UUID, db: AsyncSession = Depends(g
     link = await get_document_download_link(interdocs_path)
     return {"download_url": link}
 
-@router.get("/draft-logs/by-meeting/{meeting_id}", response_model=List[DraftLogResponse])
+@router.get("/draft-logs/by-meeting/{meeting_id}", summary="draft_log 목록 조회", response_model=List[DraftLogResponse])
 async def get_draft_logs_by_meeting(
     meeting_id: str,
     db: AsyncSession = Depends(get_db_session)
@@ -165,7 +168,7 @@ async def get_draft_logs_by_meeting(
     draft_logs = await get_draft_logs_by_meeting_id(db, meeting_id)
     return draft_logs
 
-@router.post("/super-agent")
+@router.post("/super-agent", summary="문서 추천 에이전트",)
 async def run_super_agent(
     req: SuperAgentRequest,
     db: AsyncSession = Depends(get_db_session)
