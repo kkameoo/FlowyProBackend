@@ -84,12 +84,12 @@
 ## ⚙️ 시스템 아키텍쳐
 
 
-<img width="1348" height="784" alt="Image" src="https://github.com/user-attachments/assets/42e2cb87-dc4b-4c81-b1ee-c3eda2e95cda" />
+<img width="1348" height="784" alt="Image" src="https://github.com/user-attachments/assets/ecb88059-2354-48d7-a73c-fb548793ecba" />
 
 
 ## ⚙️ CI/CD 시스템 아키텍쳐
 
-위치
+<img width="1408" height="768" alt="Image" src="https://github.com/user-attachments/assets/1e935217-9177-4bf3-8d74-85e681f71854" />
 
 <br>
 
