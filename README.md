@@ -84,7 +84,7 @@
 ## ⚙️ 시스템 아키텍쳐
 
 
-위치
+<img width="1348" height="784" alt="Image" src="https://github.com/user-attachments/assets/42e2cb87-dc4b-4c81-b1ee-c3eda2e95cda" />
 
 
 ## ⚙️ CI/CD 시스템 아키텍쳐
