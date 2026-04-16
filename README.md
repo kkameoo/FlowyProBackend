@@ -99,10 +99,164 @@
 링크위치
 
 <details>
+<summary>회의 분석</summary>
+
+## 회의 음성 파일 stt변환 및 분석
+
+<img width="1422" height="1088" alt="Image" src="https://github.com/user-attachments/assets/bbd1cdcc-142b-45f3-bff2-923a231eb3eb" />
+
+<img width="1424" height="1138" alt="Image" src="https://github.com/user-attachments/assets/9288846f-f0d9-48ef-92f8-f6f8ae9bf294" />
+
+## 프로젝트 참석자 목록 조회
+
+<img width="1417" height="1182" alt="Image" src="https://github.com/user-attachments/assets/be181d6a-e931-48bd-9da2-dd2646914ff6" />
+
+## 회의 업데이트 이메일 발송
+
+<img width="1423" height="835" alt="Image" src="https://github.com/user-attachments/assets/806a69eb-4391-4820-a756-387971232dc9" />
+
+## 회의 결과 이메일 발송
+
+<img width="1415" height="832" alt="Image" src="https://github.com/user-attachments/assets/e617c1a9-55b2-44c2-a690-74d04c231a95" />
+
+</details>
+
+<details>
+<summary>문서</summary>
+   
+## 문서 추천
+
+<img width="1421" height="863" alt="Image" src="https://github.com/user-attachments/assets/05b4507d-d3a7-480f-91ef-042081546cff" />
+
+## 문서 생성
+
+<img width="1420" height="1113" alt="Image" src="https://github.com/user-attachments/assets/23f858cf-3d44-4b30-8d18-1f191562057f" />
+
+## 모든 문서 목록 조회
+
+<img width="1423" height="993" alt="Image" src="https://github.com/user-attachments/assets/739b1a0c-f778-48d2-9c3d-f17b87fbae7d" />
+
+## 문서 수정
+
+<img width="1419" height="1148" alt="Image" src="https://github.com/user-attachments/assets/bf871703-2dc5-4ec7-be61-5d4d3a43f6a4" />
+
+## 문서 조회
+
+<img width="1417" height="856" alt="Image" src="https://github.com/user-attachments/assets/4cce3609-1fc1-45d4-9da4-7f1f69b06734" />
+
+## 문서 삭제
+
+<img width="1418" height="777" alt="Image" src="https://github.com/user-attachments/assets/fbacf220-ae0a-47a5-a2a9-1edc993db6cc" />
+
+## 문서 다운로드 링크 조회
+
+<img width="1419" height="660" alt="Image" src="https://github.com/user-attachments/assets/3164d4a6-5b62-4549-95f1-cb7fd9537ec1" />
+
+## darft_log 목록 조회
+
+<img width="1418" height="881" alt="Image" src="https://github.com/user-attachments/assets/63a1b3ef-ab08-40f6-bc30-6c7cee939d2d" />
+
+## 문서 추천 에이전트
+
+<img width="1419" height="883" alt="Image" src="https://github.com/user-attachments/assets/bd995f3c-dcb8-423f-9a2e-4aa2c1bd5789" />
+
+</details>
+
+<details>
+<summary>사용자</summary>
+   
+
+## 소셜 회원가입
+
+<img width="1420" height="946" alt="Image" src="https://github.com/user-attachments/assets/7a8272a9-d172-49e8-8dfb-6ad03c6d4888" />
+
+## 일반 회원가입
+
+<img width="1421" height="975" alt="Image" src="https://github.com/user-attachments/assets/7a1da2f0-3ebd-475a-bd76-bc7389773949" />
+
+## 쿠키 기반 로그인
+
+<img width="1421" height="931" alt="Image" src="https://github.com/user-attachments/assets/c7565ac4-64ad-454a-b872-24c63aa8fe56" />
+
+## 로그아웃
+
+<img width="1422" height="645" alt="Image" src="https://github.com/user-attachments/assets/cb8078ad-98d7-451c-ac13-d67a6365b886" />
+
+## jwt 로그인
+
+<img width="1423" height="1218" alt="Image" src="https://github.com/user-attachments/assets/da1321db-3079-4e6b-b123-642b4604f0cb" />
+
+## 토큰 사용자 확인
+
+<img width="1420" height="651" alt="Image" src="https://github.com/user-attachments/assets/427cda2c-17a4-42d3-b01e-229c670d1566" />
+
+## 쿠키 인증 상태 확인
+
+<img width="1422" height="678" alt="Image" src="https://github.com/user-attachments/assets/c7c258de-a56b-4eb7-a6ad-87c3ec8c4129" />
+
+## 구글 로그인
+
+<img width="1420" height="648" alt="Image" src="https://github.com/user-attachments/assets/5dec45d4-af79-40f7-932e-618ba12c0a11" />
+
+## 구글 로그인 롤백
+
+<img width="1417" height="648" alt="Image" src="https://github.com/user-attachments/assets/8c5a8cdd-846f-41d1-aa31-2adb850d26a2" />
+
+## 사용자 프로젝트 목록 조회
+
+<img width="1421" height="850" alt="Image" src="https://github.com/user-attachments/assets/02d61266-87ca-4eae-9b7a-77f204fb67da" />
+
+## 회원가입 메타데이터 조회
+
+<img width="1418" height="661" alt="Image" src="https://github.com/user-attachments/assets/a1a49b5d-8433-4897-b5ea-d8844792a3f3" />
+
+## 마이페이지 사용자 정보 조회
+
+<img width="1418" height="745" alt="Image" src="https://github.com/user-attachments/assets/401a3525-b342-473e-b1a7-894cecd23a92" />
+
+## 마이페이지 사용자 정보 수정
+
+<img width="1420" height="926" alt="Image" src="https://github.com/user-attachments/assets/dcbf4d50-234e-4760-acc9-9dceef882211" />
+
+## 마이페이지 비밀번호 재확인
+
+<img width="1418" height="836" alt="Image" src="https://github.com/user-attachments/assets/ff532233-8333-411e-9dec-76f3705d9bd5" />
+
+## 아이디 찾기 인증 코드 발송
+
+<img width="1422" height="839" alt="Image" src="https://github.com/user-attachments/assets/e3019eec-821b-4ce0-af69-c5e6ae81afd2" />
+
+## 비밀번호 찾기 인증 코드 발송
+
+<img width="1421" height="838" alt="Image" src="https://github.com/user-attachments/assets/db810bd1-4fba-4dff-83ba-4887621ba63e" />
+
+## 아이디 찾기 인증 코드 검증
+
+<img width="1422" height="840" alt="Image" src="https://github.com/user-attachments/assets/42b131f1-eddf-4962-9724-a0a7811ffff9" />
+
+## 비밀번호 찾기 인증 코드 검증
+
+<img width="1422" height="848" alt="Image" src="https://github.com/user-attachments/assets/eb689297-b21a-498b-b2ab-fcd08b19d889" />
+
+## 아이디 찾기
+
+<img width="1419" height="837" alt="Image" src="https://github.com/user-attachments/assets/f5d3b0d2-bee8-4d66-a292-3aa8413c77a3" />
+
+## 로그인 아이디 중복 확인
+
+<img width="1422" height="747" alt="Image" src="https://github.com/user-attachments/assets/36bd6890-6afc-4ed8-abf5-cb5f2d03ef85" />
+
+## 비밀번호 변경
+
+<img width="1419" height="837" alt="Image" src="https://github.com/user-attachments/assets/caf7ead8-59e1-4457-abd9-3ee0479048f5" />
+
+</details>
+
+<details>
 <summary>위치</summary>
    
 
-
+<img width="1417" height="1182" alt="Image" src="https://github.com/user-attachments/assets/dd1a4d09-8428-4d89-8664-f69ee33b8348" />
 
 </details>
 
