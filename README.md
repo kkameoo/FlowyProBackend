@@ -517,19 +517,19 @@
 
 ## 프로젝트 목록
 
-<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/6b95037d-d0f7-4bc6-a4f0-1a83e4dbf8ee" />
+<img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/faa1570a-490c-46b9-92e2-5fcc3619de36" />
 
 ## 프로젝트 생성
 
-<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/662fbf51-b5d9-49d2-a147-dd87d643189d" />
+<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/e9281184-04b2-426f-a28b-70be79942d21" />
 
 ## 프로젝트 수정
 
-<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/662fbf51-b5d9-49d2-a147-dd87d643189d" />
+<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/4e7df1fc-9f66-413c-b942-0d7a7615b4b7" />
 
 ## 회의 정보 입력
 
-<img width="1920" height="1052" alt="Image" src="https://github.com/user-attachments/assets/662fbf51-b5d9-49d2-a147-dd87d643189d" />
+<img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/e9dcf01f-b5b7-4760-8568-8adac83d22a9" />
 
 </details>
 
