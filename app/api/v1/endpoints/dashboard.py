@@ -19,9 +19,9 @@ from .dashboard_repo import get_summary_data, get_chart_data, get_table_data
 router = APIRouter()
 
 # Pydantic 모델을 schemas에서 import
-from app.schemas.dashboard import DashboardResponse, DashboardSummary, ChartData, TableData
+from app.schemas.dashboard import DashboardResponse, DashboardSummary, ChartData, TableData, DashboardFilterOptionsResponse
 
-@router.get("/stats", response_model=DashboardResponse)
+@router.get("/stats", summary="대시보드 통계 데이터 조회", response_model=DashboardResponse)
 async def get_dashboard_stats(
     request: Request,
     db: AsyncSession = Depends(get_db_session),
@@ -134,7 +134,7 @@ async def get_dashboard_stats(
         error_detail = f"대시보드 데이터 조회 중 오류가 발생했습니다: {str(e)}\n{traceback.format_exc()}"
         raise HTTPException(status_code=500, detail=error_detail)
 
-@router.get("/filter-options")
+@router.get("/filter-options", summary="대시보드 필터 옵션 조회", response_model=DashboardFilterOptionsResponse)
 async def get_dashboard_filter_options(
     request: Request,
     db: AsyncSession = Depends(get_db_session),

@@ -18,6 +18,19 @@ from app.schemas.find_id import (
     PasswordChangeResponse,
     PasswordChangeEmailRequest,
 )
+from app.schemas.user_response import (
+    AuthCheckResponse,
+    DuplicateIdCheckResponse,
+    FindIdResponse,
+    JwtLoginResponse,
+    LoginResponse,
+    MeResponse,
+    MessageResponse,
+    MypageCheckResponse,
+    SignupMetaResponse,
+    SignupResponse,
+    UserProjectsResponse,
+)
 from app.crud.crud_user import (
     create_user,
     authenticate_user,
@@ -56,7 +69,12 @@ ALGORITHM = "HS256"
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/users/jwtlogin")
 # 소셜 회원가입
-@router.post("/social_signup")
+@router.post(
+    "/social_signup",
+    response_model=None,
+    summary="소셜 회원가입 완료",
+    description="소셜 로그인으로 받은 토큰 정보를 기반으로 추가 입력값을 합쳐 회원가입을 완료합니다.",
+)
 async def social_signup(request: Request, user_data: SocialUserCreate, db: AsyncSession = Depends(get_db_session)):
     token = request.cookies.get("signup_token")
     if not token:
@@ -90,7 +108,12 @@ async def social_signup(request: Request, user_data: SocialUserCreate, db: Async
     return await create_user(db, new_user)
     
 # 회원가입
-@router.post("/signup")
+@router.post(
+    "/signup",
+    response_model=SignupResponse,
+    summary="일반 회원가입",
+    description="일반 회원가입을 처리하고, 성공 시 소속 회사 관리자에게 가입 알림 메일을 전송합니다.",
+)
 async def signup(user: UserCreate, db: AsyncSession = Depends(get_db_session)):
     try:
         # 1. DB 저장
@@ -121,7 +144,12 @@ async def signup(user: UserCreate, db: AsyncSession = Depends(get_db_session)):
     return {"message": "회원가입 성공, 메일 발송 완료"}
 
 # 로그인
-@router.post("/login")
+@router.post(
+    "/login",
+    response_model=LoginResponse,
+    summary="쿠키 기반 로그인",
+    description="아이디/비밀번호를 검증하고 액세스 토큰을 쿠키에 저장한 뒤 인증 사용자 정보를 반환합니다.",
+)
 async def login(user: LoginInfo, response: Response, db: AsyncSession = Depends(get_db_session)):
     auth_user = await authenticate_user(db, user.login_id, user.password)
 
@@ -165,13 +193,23 @@ async def login(user: LoginInfo, response: Response, db: AsyncSession = Depends(
     return response
 
 # 로그아웃
-@router.post("/logout")
+@router.post(
+    "/logout",
+    response_model=MessageResponse,
+    summary="로그아웃",
+    description="인증 쿠키를 제거하여 로그인 세션을 종료합니다.",
+)
 async def logout(response: Response):
     response.delete_cookie(key="access_token", httponly=True, secure=COOKIE_SECURE, samesite=COOKIE_SAMESITE)
     return {"message": "Logged out successfully"}
 
 # 로그인 → JWT 반환
-@router.post("/jwtlogin")
+@router.post(
+    "/jwtlogin",
+    response_model=JwtLoginResponse,
+    summary="JWT 토큰 로그인",
+    description="OAuth2 폼 데이터를 받아 JWT 액세스 토큰을 발급합니다.",
+)
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession  = Depends(get_db_session)):
 
     auth_user = await authenticate_user(db, form_data.username, form_data.password )
@@ -186,26 +224,46 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
     return {"access_token": access_token, "token_type": "bearer"}
 
 # 인증 테스트
-@router.get("/me")
+@router.get(
+    "/me",
+    response_model=MeResponse,
+    summary="토큰 사용자 확인",
+    description="Bearer 토큰을 검증해 현재 인증된 사용자 식별자를 반환합니다.",
+)
 async def read_me(token: str = Depends(oauth2_scheme)):
     username = await verify_token(token)
     return {"username": username}
 
 # 유저 체크
-@router.get("/auth/check")
+@router.get(
+    "/auth/check",
+    response_model=AuthCheckResponse,
+    summary="쿠키 인증 상태 확인",
+    description="쿠키의 액세스 토큰 유효성을 검사하고 인증 여부와 사용자 정보를 반환합니다.",
+)
 async def auth_check(request: Request):
     user = await check_access_token(request)
     user_dict = json.loads(user.json())
     return JSONResponse(content={"authenticated": True, "user": user_dict})
 
 #  구글 로그인
-@router.get("/auth/google/login")
+@router.get(
+    "/auth/google/login",
+    response_model=None,
+    summary="구글 로그인 시작",
+    description="구글 OAuth 인증 페이지로 리다이렉트합니다.",
+)
 async def google_login(request: Request):
     redirect_uri = BACKEND_URI + "/api/v1/users/auth/google/callback"
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 # 구글 로그인 콜백
-@router.get("/auth/google/callback")
+@router.get(
+    "/auth/google/callback",
+    response_model=None,
+    summary="구글 로그인 콜백",
+    description="구글 인증 결과를 처리하고 신규 사용자는 추가 회원가입 페이지로, 기존 사용자는 서비스 홈으로 리다이렉트합니다.",
+)
 async def google_callback(request: Request, response: Response, db: AsyncSession = Depends(get_db_session)):
     # 1) 구글에서 온 authorization code를 받아서 access token 요청
     token = await oauth.google.authorize_access_token(request)
@@ -278,7 +336,12 @@ async def google_callback(request: Request, response: Response, db: AsyncSession
     return redirect_response  # 또는 프론트엔드 URL 
 
 # 프로젝트 유저들 get
-@router.get("/projects/{user_id}")
+@router.get(
+    "/projects/{user_id}",
+    response_model=UserProjectsResponse,
+    summary="사용자 프로젝트 목록 조회",
+    description="사용자 ID 기준으로 참여 중인 프로젝트 목록을 조회합니다.",
+)
 async def read_projects_for_user(user_id: UUID, db: AsyncSession = Depends(get_db_session)):
     projects = await get_projects_for_user(db, user_id)
     projects_list = [
@@ -287,19 +350,28 @@ async def read_projects_for_user(user_id: UUID, db: AsyncSession = Depends(get_d
     return {"projects": projects_list}
 
 # 회원가입시 회사, 직급 등 메타데이터 get
-@router.get("/signup/meta")
+@router.get(
+    "/signup/meta",
+    response_model=SignupMetaResponse,
+    summary="회원가입 메타데이터 조회",
+    description="회원가입 화면에서 사용하는 회사/부서/직급 등의 메타데이터를 반환합니다.",
+)
 async def read_company_names(db: AsyncSession = Depends(get_db_session)):
     data = await get_signup_meta(db)
 
     return data
 
 # 마이페이지 유저의 정보 get
-@router.get("/one")
+@router.get(
+    "/one",
+    response_model=UserWithCompanyInfo,
+    summary="마이페이지 사용자 정보 조회",
+    description="현재 로그인한 사용자의 마이페이지 정보를 조회합니다.",
+)
 async def read_one_user(
     request: Request,
     token_user = Depends(check_access_token),
-    db: AsyncSession = Depends(get_db_session),
-    response_model=UserWithCompanyInfo):
+    db: AsyncSession = Depends(get_db_session)):
 
     user_dict = json.loads(token_user.json())
     print(user_dict)
@@ -309,7 +381,12 @@ async def read_one_user(
     return user_info
 
 # 마이페이지 유저 정보 업데이트 라우터
-@router.put("/update")
+@router.put(
+    "/update",
+    response_model=LoginResponse,
+    summary="마이페이지 사용자 정보 수정",
+    description="사용자 기본 정보를 수정하고 갱신된 사용자 정보를 담은 액세스 토큰을 재발급합니다.",
+)
 async def update_user(
     response: Response,
     user_update: UserUpdateRequest,
@@ -356,7 +433,12 @@ async def update_user(
 
 
 # 마이페이지 유저 식별 라우터
-@router.post("/mypage/check")
+@router.post(
+    "/mypage/check",
+    response_model=MypageCheckResponse,
+    summary="마이페이지 비밀번호 재확인",
+    description="마이페이지 주요 기능 전, 입력한 로그인 정보가 본인 정보와 일치하는지 검증합니다.",
+)
 async def mypage_check(
     request: Request,
     userInfo: LoginInfo,
@@ -368,10 +450,15 @@ async def mypage_check(
     if not auth_user:
         raise HTTPException(status_code=401, detail="Invalid login_id or password")
 
-    return True
+    return {"verified": True}
 
 # 이메일 전송 라우터
-@router.post("/find_id/send_code")
+@router.post(
+    "/find_id/send_code",
+    response_model=MessageResponse,
+    summary="아이디 찾기 인증코드 발송",
+    description="입력한 이메일로 아이디 찾기용 인증 코드를 발송합니다.",
+)
 async def send_code_api(request: Request, payload: EmailRequest):
     try:
         # 1. 이메일 형식은 Pydantic(EmailStr)에서 기본 검사됨
@@ -406,7 +493,12 @@ async def send_code_api(request: Request, payload: EmailRequest):
         )
 
 # 이메일 전송 라우터
-@router.post("/find_pw/send_code")
+@router.post(
+    "/find_pw/send_code",
+    response_model=MessageResponse,
+    summary="비밀번호 찾기 인증코드 발송",
+    description="아이디와 이메일을 검증한 뒤 비밀번호 재설정용 인증 코드를 발송합니다.",
+)
 async def send_code_api(
     request: Request,
     payload: PasswordChangeEmailRequest,
@@ -456,14 +548,24 @@ async def send_code_api(
         
 
 # 인증번호를 체크 하는 라우터(아이디)
-@router.post("/verify_code")
+@router.post(
+    "/verify_code",
+    response_model=MypageCheckResponse,
+    summary="아이디 찾기 인증코드 검증",
+    description="아이디 찾기 인증코드가 세션에 저장된 코드와 일치하는지 확인합니다.",
+)
 async def verify_code(request: Request, payload: CodeRequest):
     saved_code = request.session.get("verify_code:{payload.email}")
     is_verified = payload.input_code == saved_code
     return {"verified": is_verified}
 
 # 인증번호를 체크 하는 라우터(비밀번호 - 비밀번호같은 경우는 체크후 토큰 생성까지 필요)
-@router.post("/find_pw/verify_code", response_model=VerifyCodeResponse)
+@router.post(
+    "/find_pw/verify_code",
+    response_model=VerifyCodeResponse,
+    summary="비밀번호 찾기 인증코드 검증",
+    description="비밀번호 재설정 인증코드를 검증하고 성공 시 비밀번호 변경용 검증 토큰 쿠키를 발급합니다.",
+)
 async def verify_code(
     request: Request,
     response: Response,
@@ -497,7 +599,12 @@ async def verify_code(
     return VerifyCodeResponse(verified=is_verified)
 
 # 아이디 찾기 라우터
-@router.post("/find_id")
+@router.post(
+    "/find_id",
+    response_model=FindIdResponse,
+    summary="아이디 찾기",
+    description="이메일로 가입된 사용자 로그인 아이디를 조회합니다.",
+)
 async def find_id_api(payload: EmailRequest, db: AsyncSession = Depends(get_db_session)):
     user_login_id = await find_id_from_email(db, payload.email)
 
@@ -507,13 +614,23 @@ async def find_id_api(payload: EmailRequest, db: AsyncSession = Depends(get_db_s
     return {"user_login_id": user_login_id}
 
 # 회원가입 작성시 로그인아이디가 중복되는 체크하는 함수
-@router.get("/sign_up/check_id")
+@router.get(
+    "/sign_up/check_id",
+    response_model=DuplicateIdCheckResponse,
+    summary="로그인 아이디 중복 확인",
+    description="회원가입 시 사용할 로그인 아이디의 중복 여부를 확인합니다.",
+)
 async def check_duplicate_id(login_id: str, db: AsyncSession = Depends(get_db_session)):
     is_duplicate = await is_duplicate_login_id(db, login_id)
     return {"is_duplicate": is_duplicate}
 
 # 비밀번호 변경 라우터
-@router.post("/find_pw/change_password", response_model=PasswordChangeResponse)
+@router.post(
+    "/find_pw/change_password",
+    response_model=PasswordChangeResponse,
+    summary="비밀번호 변경",
+    description="검증 토큰을 확인한 뒤 사용자의 비밀번호를 새로운 값으로 변경합니다.",
+)
 async def change_password(
     request: Request,
     payload: PasswordChangeRequest,

@@ -19,5 +19,7 @@ class CompanyUpdate(CompanyBase):
 class CompanyRead(CompanyBase):
     company_id: UUID
 
-    class Config:
-        orm_mode = True
+class Config:
+        from_attributes = True  # ORM 객체 → Pydantic 변환에 필수
+
+    

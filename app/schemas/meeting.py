@@ -105,3 +105,32 @@ class RejectMeetingRequest(BaseModel):
     """예정 회의 거부 처리 요청"""
     agent_meeting_id: UUID
 
+
+class MeetingActionResponse(BaseModel):
+    success: bool
+    message: str
+    calendar_id: UUID
+
+
+class MeetingPromptLogItem(BaseModel):
+    prompt_log_id: UUID
+    meeting_id: UUID
+    agent_type: str
+    prompt: str
+    response: Optional[str] = None
+    created_at: datetime
+
+
+class MeetingPromptLogsByMeetingResponse(BaseModel):
+    meeting_id: str
+    agent_type: Optional[str] = None
+    logs: List[dict]
+
+
+class MeetingPromptLogsResponse(BaseModel):
+    agent_type: Optional[str] = None
+    total_count: int
+    logs: List[dict]
+
+class Config:
+        from_attributes = True  # ORM 객체 → Pydantic 변환에 필수

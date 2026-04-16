@@ -35,4 +35,23 @@ class DashboardResponse(BaseModel):
 class FilterOptions(BaseModel):
     projects: List[dict]
     departments: List[str]
-    users: List[dict] 
+    users: List[dict]
+
+
+class DashboardFilterProjectOption(BaseModel):
+    id: str
+    name: str
+
+
+class DashboardFilterUserOption(BaseModel):
+    id: str
+    name: str
+    login_id: str
+    department: Optional[str] = None
+
+
+class DashboardFilterOptionsResponse(BaseModel):
+    projects: List[DashboardFilterProjectOption]
+    departments: List[str]
+    users: List[DashboardFilterUserOption]
+    selected_user_department: Optional[str] = None

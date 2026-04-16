@@ -4,6 +4,14 @@ from app.db.db_session import get_db_session
 from app.crud.crud_user import get_all_users
 from app.schemas.signup_info import TokenPayload
 from app.schemas.project import ProjectCreate, ProjectNameUpdate, TaskAssignLogCreate, SummaryLogCreate, ProjectUpdateRequestBody, SummaryAndTaskRequest, MeetingCreateRequest
+from app.schemas.project_response import (
+    GenericListResponse,
+    GenericObjectResponse,
+    MeetingCreateResponse,
+    MessageResponse,
+    ProjectCreateResponse,
+    ProjectMetaResponse,
+)
 from app.services.signup_service.auth import check_access_token
 from app.crud.crud_project import get_project_users_with_projects_by_user_id, get_meetings_with_users_by_project_id, create_project, get_meeting_detail_with_project_and_users, update_project_name_by_id, insert_task_assign_log, insert_summary_log, update_project_with_users, insert_summary_and_task_logs
 from uuid import UUID
@@ -13,11 +21,17 @@ from app.services.calendar_service.calendar_crud import update_calendar_from_tod
 from app.crud.crud_meeting import insert_meeting, insert_meeting_user, get_role_id_by_user_and_project
 from app.models.flowy_user import FlowyUser
 from datetime import datetime
+from typing import Any
 
 router = APIRouter()
 
 
-@router.post("")
+@router.post(
+    "",
+    response_model=ProjectCreateResponse,
+    summary="프로젝트 생성",
+    description="프로젝트 기본 정보와 참여 사용자 목록을 받아 새 프로젝트를 생성합니다.",
+)
 async def create_project_api(
     project_data: ProjectCreate,
     db: AsyncSession = Depends(get_db_session)
@@ -36,25 +50,45 @@ async def create_project_api(
         )
 
 
-@router.get("/meta")
+@router.get(
+    "/meta",
+    response_model=ProjectMetaResponse,
+    summary="프로젝트 생성 메타 조회",
+    description="현재 사용자 기준으로 같은 회사의 사용자 목록과 역할 목록을 조회합니다.",
+)
 async def list_users(token_user = Depends(check_access_token), db: AsyncSession = Depends(get_db_session)):
     users = await get_all_users(token_user, db)
     return users
 
-@router.get("/user_id/{user_id}")
+@router.get(
+    "/user_id/{user_id}",
+    response_model=GenericListResponse,
+    summary="사용자 프로젝트 목록 조회",
+    description="사용자 ID로 참여 중인 프로젝트 목록과 프로젝트별 참여자 수를 조회합니다.",
+)
 async def read_user_projects(user_id: UUID, db: AsyncSession = Depends(get_db_session)):
     projects = await get_project_users_with_projects_by_user_id(db, user_id)
-    return projects
+    return {"data": projects}
 
-@router.get("/meeting/{project_id}")
+@router.get(
+    "/meeting/{project_id}",
+    response_model=GenericListResponse,
+    summary="프로젝트 회의 목록 조회",
+    description="프로젝트의 회의 목록과 분석 상태를 최신 순으로 조회합니다.",
+)
 async def read_meetings_with_users(project_id: UUID, db: AsyncSession = Depends(get_db_session)):
     meetings = await get_meetings_with_users_by_project_id(db, project_id)
-    return meetings
+    return {"data": meetings}
 
-@router.get("/meeting/result/{meeting_id}")
+@router.get(
+    "/meeting/result/{meeting_id}",
+    response_model=GenericObjectResponse,
+    summary="회의 분석 결과 상세 조회",
+    description="회의 기본 정보, 프로젝트 정보, 참여자, 최신 요약/피드백/역할 분배 로그를 조회합니다.",
+)
 async def meetings_with_result(meeting_id: UUID ,db: AsyncSession = Depends(get_db_session)):
     meetings = await get_meeting_detail_with_project_and_users(db, meeting_id)
-    return meetings
+    return {"data": meetings}
 
 # @router.delete("/{project_id}")
 # async def delete_project(project_id: UUID, db: AsyncSession = Depends(get_db_session)):
@@ -63,7 +97,12 @@ async def meetings_with_result(meeting_id: UUID ,db: AsyncSession = Depends(get_
 #         raise HTTPException(status_code=404, detail="Project not found")
 #     return {"message": "Project deleted successfully"}
 
-@router.put("/{project_id}")
+@router.put(
+    "/{project_id}",
+    response_model=MessageResponse,
+    summary="프로젝트 이름 수정",
+    description="프로젝트 ID로 프로젝트 이름을 수정합니다.",
+)
 async def update_project_name(
     project_id: UUID,
     data: ProjectNameUpdate,
@@ -74,7 +113,12 @@ async def update_project_name(
         raise HTTPException(status_code=404, detail="Project not found")
     return {"message": "Project name updated successfully"}
 
-@router.post("/update_todos")
+@router.post(
+    "/update_todos",
+    response_model=MessageResponse,
+    summary="회의 할 일 로그 저장",
+    description="회의의 역할 분배/할 일 업데이트 로그를 저장합니다.",
+)
 async def create_task_assign_log(
     log_data: TaskAssignLogCreate,
     db: AsyncSession = Depends(get_db_session)
@@ -88,7 +132,12 @@ async def create_task_assign_log(
         raise HTTPException(status_code=500, detail="Failed to create task assign log")
     return {"message": "Task assign log created successfully"}
 
-@router.post("/update_summary")
+@router.post(
+    "/update_summary",
+    response_model=MessageResponse,
+    summary="회의 요약 로그 저장",
+    description="회의 요약 업데이트 로그를 저장합니다.",
+)
 async def create_summary_log(
     log_data: SummaryLogCreate,
     db: AsyncSession = Depends(get_db_session)
@@ -102,7 +151,12 @@ async def create_summary_log(
         raise HTTPException(status_code=500, detail="Failed to create task assign log")
     return {"message": "Task assign log created successfully"}
 
-@router.post("/update_summary_task")
+@router.post(
+    "/update_summary_task",
+    response_model=MessageResponse,
+    summary="요약/할 일 동시 저장",
+    description="회의 요약과 할 일 로그를 동시에 저장하고 할 일 기반 캘린더를 갱신합니다.",
+)
 async def create_summary_and_task(
     data: SummaryAndTaskRequest,  # pydantic 모델
     db: AsyncSession = Depends(get_db_session)
@@ -126,7 +180,12 @@ async def create_summary_and_task(
 
 
 
-@router.put("/update_project_with_users/{project_id}")
+@router.put(
+    "/update_project_with_users/{project_id}",
+    response_model=MessageResponse,
+    summary="프로젝트 정보/참여자 수정",
+    description="프로젝트 이름/설명과 참여자 목록(역할 포함)을 함께 수정합니다.",
+)
 async def update_project(
     project_id: UUID,
     body: ProjectUpdateRequestBody,
@@ -143,7 +202,12 @@ async def update_project(
         raise HTTPException(status_code=404, detail="Project not found")
     return {"message": "Project updated"}
 
-@router.post("/meeting/create")
+@router.post(
+    "/meeting/create",
+    response_model=MeetingCreateResponse,
+    summary="회의 생성",
+    description="프로젝트 회의를 생성하고 회의 참여자와 사용자 캘린더 일정을 함께 등록합니다.",
+)
 async def create_meeting_with_users(
     meeting_data: MeetingCreateRequest,
     db: AsyncSession = Depends(get_db_session)

@@ -8,15 +8,15 @@ from uuid import UUID
 
 router = APIRouter()
 
-@router.get("/{user_id}/{project_id}", response_model=List[CalendarResponse])
+@router.get("/{user_id}/{project_id}", summary="사용자의 프로젝트별 캘린더 조회", response_model=List[CalendarResponse])
 async def read_calendars_by_user_and_project(user_id: UUID, project_id: UUID, db: AsyncSession = Depends(get_db_session)):
-    """사용자의 프로젝트별 캘린더 조회"""
+    """사용자의 프로젝트별 캘린더를 조회합니다."""
     calendars = await get_calendars_by_user_and_project_filtered(user_id, project_id, db)
     return calendars
 
-@router.put("/{calendar_id}", response_model=CalendarResponse)
+@router.put("/{calendar_id}", summary="캘린더 수정", response_model=CalendarResponse)
 async def edit_calendar(calendar_id: UUID, body: dict, db: AsyncSession = Depends(get_db_session)):
-    """ 캘린더 수정 """
+    """ 캘린더 수정을 합니다. """
     calendar = await update_calendar(
         calendar_id=calendar_id,
         completed=body["completed"],
@@ -26,9 +26,9 @@ async def edit_calendar(calendar_id: UUID, body: dict, db: AsyncSession = Depend
         raise HTTPException(status_code=404, detail="Calendar not found")
     return calendar
 
-@router.put("/by-meeting/{meeting_id}", response_model=CalendarResponse)
+@router.put("/by-meeting/{meeting_id}", summary="meeting_id로 캘린더 수정", response_model=CalendarResponse)
 async def edit_calendar_by_meeting_id(meeting_id: UUID, body: dict, db: AsyncSession = Depends(get_db_session)):
-    """ meeting_id로 캘린더 수정 """
+    """ meeting_id로 캘린더 수정을 합니다. """
     calendar = await update_calendar_by_meeting_id(
         meeting_id=meeting_id,
         completed=body["completed"],

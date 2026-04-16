@@ -19,7 +19,40 @@ async def get_signup_meta(db: AsyncSession):
     sysrole_result = await db.execute(stmt_sysrole)
     sysroles = sysrole_result.scalars().all()
 
-    return {
-        "companies": companies,
-        "sysroles": sysroles
-    }
+    company_items = []
+    for company in companies:
+        positions = []
+        for position in company.company_positions:
+            positions.append(
+                {
+                    "position_id": position.position_id,
+                    "position_company_id": position.position_company_id,
+                    "position_code": position.position_code,
+                    "position_name": position.position_name,
+                    "position_detail": position.position_detail,
+                }
+            )
+
+        company_items.append(
+            {
+                "company_id": company.company_id,
+                "company_name": company.company_name,
+                "company_scale": company.company_scale,
+                "service_startdate": company.service_startdate,
+                "service_enddate": company.service_enddate,
+                "service_status": company.service_status,
+                "company_positions": positions,
+            }
+        )
+
+    sysrole_items = [
+        {
+            "sysrole_id": sysrole.sysrole_id,
+            "sysrole_name": sysrole.sysrole_name,
+            "sysrole_detail": sysrole.sysrole_detail,
+            "permissions": sysrole.permissions,
+        }
+        for sysrole in sysroles
+    ]
+
+    return {"companies": company_items, "sysroles": sysrole_items}

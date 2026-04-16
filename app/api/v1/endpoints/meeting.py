@@ -11,7 +11,14 @@ from app.models.meeting import Meeting
 from app.models.meeting_user import MeetingUser
 from app.models.calendar import Calendar
 from app.models.flowy_user import FlowyUser
-from app.schemas.meeting import PendingMeetingResponse, AcceptMeetingRequest, RejectMeetingRequest
+from app.schemas.meeting import (
+    PendingMeetingResponse,
+    AcceptMeetingRequest,
+    RejectMeetingRequest,
+    MeetingActionResponse,
+    MeetingPromptLogsByMeetingResponse,
+    MeetingPromptLogsResponse,
+)
 from app.schemas.signup_info import TokenPayload
 from app.crud.crud_meeting import get_prompt_logs_by_meeting, get_all_prompt_logs
 from app.services.calendar_service.calendar_crud import insert_meeting_calendar
@@ -33,7 +40,12 @@ async def check_po_permission(db: AsyncSession, user_id: UUID, meeting_id: UUID)
     result = await db.execute(stmt)
     return result.scalar_one_or_none() is not None
 
-@router.get("/pending", response_model=List[PendingMeetingResponse])
+@router.get(
+    "/pending",
+    response_model=List[PendingMeetingResponse],
+    summary="확인 대기 예정 회의 조회",
+    description="현재 회의를 기준으로 PO 권한 사용자가 확인해야 하는 후속 예정 회의 목록을 조회합니다.",
+)
 async def get_pending_meetings(
     request: Request,
     meeting_id: UUID,
@@ -103,7 +115,12 @@ async def get_pending_meetings(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
 
-@router.post("/{meeting_id}/accept")
+@router.post(
+    "/{meeting_id}/accept",
+    response_model=MeetingActionResponse,
+    summary="예정 회의 수락",
+    description="PO 권한을 확인한 뒤 예정 회의를 캘린더에 등록하고 필요 시 회의 정보를 수정합니다.",
+)
 async def accept_meeting(
     request: Request,
     meeting_id: UUID,
@@ -199,7 +216,12 @@ async def accept_meeting(
         print(f"[accept_meeting] 스택 트레이스: {traceback.format_exc()}", flush=True)
         raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
 
-@router.post("/{meeting_id}/reject")
+@router.post(
+    "/{meeting_id}/reject",
+    response_model=MeetingActionResponse,
+    summary="예정 회의 거부",
+    description="PO 권한을 확인한 뒤 예정 회의를 거부 처리하고 캘린더에 거부 상태로 기록합니다.",
+)
 async def reject_meeting(
     request: Request,
     meeting_id: UUID,
@@ -274,7 +296,12 @@ async def reject_meeting(
         await db.rollback()
         raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
 
-@router.get("/prompt-logs/{meeting_id}")
+@router.get(
+    "/prompt-logs/{meeting_id}",
+    response_model=MeetingPromptLogsByMeetingResponse,
+    summary="특정 회의 프롬프트 로그 조회",
+    description="회의 ID 기준으로 에이전트 프롬프트 로그를 조회하며, 필요 시 에이전트 타입으로 필터링합니다.",
+)
 async def get_meeting_prompt_logs(
     meeting_id: str,
     agent_type: Optional[str] = None,
@@ -297,7 +324,12 @@ async def get_meeting_prompt_logs(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"프롬프트 로그 조회 중 오류: {str(e)}")
 
-@router.get("/prompt-logs")
+@router.get(
+    "/prompt-logs",
+    response_model=MeetingPromptLogsResponse,
+    summary="전체 회의 프롬프트 로그 조회",
+    description="전체 회의의 프롬프트 로그를 조회하며, 필요 시 에이전트 타입으로 필터링합니다.",
+)
 async def get_all_meeting_prompt_logs(
     agent_type: Optional[str] = None,
     db: AsyncSession = Depends(get_db_session)
