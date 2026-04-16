@@ -253,10 +253,210 @@
 </details>
 
 <details>
-<summary>위치</summary>
+<summary>관리자</summary>
+   
+## 사용자 생성
+
+<img width="1419" height="1139" alt="Image" src="https://github.com/user-attachments/assets/20c2ce63-843c-4ccf-975c-ccadd420e133" />
+
+## 사용자 목록 조회
+
+<img width="1421" height="1046" alt="Image" src="https://github.com/user-attachments/assets/91ec4a19-c40d-4bed-a720-7e4ca4e0720d" />
+
+## 관리자 목록 조회
+
+<img width="1421" height="818" alt="Image" src="https://github.com/user-attachments/assets/6d6927d3-71e0-42df-ba8a-66369626d7cb" />
+
+## 특정 사용자 정보 조회
+
+<img width="1421" height="926" alt="Image" src="https://github.com/user-attachments/assets/1775cc28-fd72-4945-8c5c-11e860dc4b93" />
+
+## 사용자 정보 수정
+
+<img width="1422" height="1237" alt="Image" src="https://github.com/user-attachments/assets/1e7b4751-6c4c-41ad-90bd-9f9095f4e38c" />
+
+## 사용자 삭제
+
+<img width="1421" height="883" alt="Image" src="https://github.com/user-attachments/assets/76f1c118-091e-42bd-b4d7-de56e3ed58ec" />
+
+## 사용자 승인 상태 변경
+
+<img width="1418" height="1125" alt="Image" src="https://github.com/user-attachments/assets/0b0ce4c9-652b-4f83-9ad6-6b3a2fe8ce35" />
+
+## 회사별 사용자 목록 조회
+
+<img width="1422" height="902" alt="Image" src="https://github.com/user-attachments/assets/5c9b54fc-3b5e-4c77-9dff-5e6cbb3fbc21" />
+
+## 사용자 관리자 권한 위임
+
+<img width="1418" height="828" alt="Image" src="https://github.com/user-attachments/assets/93517cc6-b5dd-4625-8c0b-55e3cc2cd7e1" />
+
+## 회사 생성
+
+<img width="1423" height="932" alt="Image" src="https://github.com/user-attachments/assets/333da020-dd63-468c-a29d-2714227c93fd" />
+
+## 회사 목록 조회
+
+<img width="1424" height="921" alt="Image" src="https://github.com/user-attachments/assets/2aa7fc23-0bda-4d87-a7ac-e8bc04646afa" />
+
+## 회사 조회
+
+<img width="1418" height="805" alt="Image" src="https://github.com/user-attachments/assets/9fe4749f-4d64-43a0-9cda-68317b44db7e" />
+
+## 회사 정보 수정
+
+<img width="1422" height="1030" alt="Image" src="https://github.com/user-attachments/assets/2e235254-b602-4054-a444-12fc571b5256" />
+
+## 회사 삭제
+
+<img width="1418" height="882" alt="Image" src="https://github.com/user-attachments/assets/810e39d4-228f-43b7-a3ef-acca98bd72df" />
+
+## 회사 서비스 상태 변경
+
+<img width="1421" height="996" alt="Image" src="https://github.com/user-attachments/assets/2d41bf5d-17d3-4cb0-b3d6-bc242fda22aa" />
+
+## 직급 생성
+
+<img width="1420" height="899" alt="Image" src="https://github.com/user-attachments/assets/9f272866-e09e-4d72-94ce-2f4b07ef5eff" />
+
+## 직급 목록 조회
+
+<img width="1420" height="906" alt="Image" src="https://github.com/user-attachments/assets/22612a52-09ca-450d-9a16-bca62aa922ec" />
+
+## 직급 정보 조회
+
+<img width="1420" height="782" alt="Image" src="https://github.com/user-attachments/assets/bfdee24c-776a-44e0-ab3e-2d1d108dc866" />
+
+## 직급 정보 수정
+
+<img width="1419" height="1007" alt="Image" src="https://github.com/user-attachments/assets/392a647e-f64a-4d4d-b4c7-8bcb60796c37" />
+
+## 직급 삭제
+
+<img width="1420" height="885" alt="Image" src="https://github.com/user-attachments/assets/54aa90d4-fc2f-4ff6-a083-b614ae619e83" />
+
+## 특정 회사 직급 목록 조회
+
+<img width="1422" height="817" alt="Image" src="https://github.com/user-attachments/assets/565a12d3-d8a9-4e4e-a1d8-ffe9decdcc46" />
+
+</details>
+
+<details>
+<summary>프로젝트</summary>
+   
+## 프로젝트 생성
+
+<img width="1420" height="947" alt="Image" src="https://github.com/user-attachments/assets/33557e9b-71dc-4afa-b005-1afcbc2af10a" />
+
+## 프로젝트 생성 메타 조회
+
+<img width="1420" height="775" alt="Image" src="https://github.com/user-attachments/assets/70a43231-7bd4-42d5-851f-51df1080977d" />
+
+## 사용자 프로젝트 목록 조회
+
+<img width="1424" height="762" alt="Image" src="https://github.com/user-attachments/assets/f147a645-2ece-414a-9308-6becc0cf4122" />
+
+## 프로젝트 회의 목록 조회
+
+<img width="1419" height="754" alt="Image" src="https://github.com/user-attachments/assets/27669b44-630f-4d38-a8e6-d4e090cd5773" />
+
+## 회의 분석 결과 상세 조회
+
+<img width="1419" height="754" alt="Image" src="https://github.com/user-attachments/assets/a37f0c46-c1fb-4d94-8034-f6fbd034826d" />
+
+## 프로젝트 이름 수정
+
+<img width="1421" height="944" alt="Image" src="https://github.com/user-attachments/assets/c2be9e9f-cb85-4a3d-9895-279d247cc9bf" />
+
+## 회의 할 일 로그 저장
+
+<img width="1420" height="863" alt="Image" src="https://github.com/user-attachments/assets/edbad8ec-b643-43f2-a254-0026abeccd2b" />
+
+## 회의 요약 로그 저장
+
+<img width="1422" height="979" alt="Image" src="https://github.com/user-attachments/assets/5e8b4881-7257-4304-bdf8-1cab56a76cbd" />
+
+## 요약/할 일 동시 저장
+
+<img width="1420" height="901" alt="Image" src="https://github.com/user-attachments/assets/7cb82793-2034-4e18-a99d-d81c1e9e01fb" />
+
+## 프로젝트 정보/참여자 수정
+
+<img width="1418" height="1038" alt="Image" src="https://github.com/user-attachments/assets/bb585ea8-f5fc-436b-aea2-8a613a642b4d" />
+
+## 회의 생성
+
+<img width="1421" height="957" alt="Image" src="https://github.com/user-attachments/assets/3928e72f-686b-4f83-a26d-61033632affa" />
+
+</details>
+
+<details>
+<summary>캘린더</summary>
+   
+## 사용자의 프로젝트별 캘린더 조회
+
+<img width="1419" height="965" alt="Image" src="https://github.com/user-attachments/assets/01dc4df8-d0f4-4352-b136-dac3106f8c3c" />
+
+## 캘린더 수정
+
+<img width="1421" height="1054" alt="Image" src="https://github.com/user-attachments/assets/aea4bf94-ea18-47a8-b264-0fb72da0b601" />
+
+## meeting_id로 캘린더 수정
+
+<img width="1423" height="1049" alt="Image" src="https://github.com/user-attachments/assets/cf519f38-cd75-4028-a093-db23cb7b08c3" />
+
+</details>
+
+<details>
+<summary>챗봇</summary>
+   
+## 챗봇 채팅
+
+<img width="1419" height="753" alt="Image" src="https://github.com/user-attachments/assets/a7d072e6-cff3-4c71-9b58-5784a02e42a8" />
+
+</details>
+
+<details>
+<summary>대시보드</summary>
    
 
-<img width="1417" height="1182" alt="Image" src="https://github.com/user-attachments/assets/dd1a4d09-8428-4d89-8664-f69ee33b8348" />
+## 대시보드 통계 데이터 조회
+
+<img width="1418" height="993" alt="Image" src="https://github.com/user-attachments/assets/475e6eeb-ebeb-46ec-8997-7ca048829ca8" />
+
+<img width="1418" height="647" alt="Image" src="https://github.com/user-attachments/assets/84bbf7e9-6972-4f45-8f52-5a5095fc536d" />
+
+## 대시보드 필터 옵션 조회
+
+<img width="1415" height="842" alt="Image" src="https://github.com/user-attachments/assets/cdc5eaa4-2c10-4950-b6c9-bd0e8c641473" />
+
+<img width="1417" height="589" alt="Image" src="https://github.com/user-attachments/assets/e6a73522-9448-4def-959f-965cc1263210" />
+
+</details>
+
+<details>
+<summary>회의</summary>
+   
+
+## 확인 대기 예정 회의 조회
+
+<img width="1418" height="815" alt="Image" src="https://github.com/user-attachments/assets/0f7e1736-70c5-42e1-b1d5-2a918de7999b" />
+
+## 예정 회의 수락
+
+<img width="1419" height="976" alt="Image" src="https://github.com/user-attachments/assets/e568ad47-77fc-403e-a1b7-725d810bb3db" />
+
+## 예정 회의 거부
+
+<img width="1423" height="954" alt="Image" src="https://github.com/user-attachments/assets/0f26b12f-f2c7-477b-98d4-af8237df35f2" />
+
+## 특정 회의 프롬프트 로그 조회
+
+<img width="1420" height="914" alt="Image" src="https://github.com/user-attachments/assets/7418b74c-6e99-4222-a15f-c8f91d68b2a1" />
+
+## 전체 회의 프롬프트 로그 조회
+
+<img width="1420" height="840" alt="Image" src="https://github.com/user-attachments/assets/4bd20fd4-b223-47af-8f3c-64398873eb04" />
 
 </details>
 
