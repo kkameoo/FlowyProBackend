@@ -96,7 +96,7 @@
 ## 📌 API 단위 테스트 결과서(주요기능)
 
 
-[API문서 보러가기(swaggerhub)](https://app.swaggerhub.com/apis/none-8e2/FlowyProAPI/0.1.0)
+[API단위 테스트(세부 기능)](https://app.swaggerhub.com/apis/none-8e2/FlowyProAPI/0.1.0)
 
 <details>
 <summary>회의 분석</summary>
