@@ -2,6 +2,9 @@
 
 <br/>
 
+## 관련 저장소
+**프론트엔드**: 링크 (https://github.com/kkameoo/FlowyProFrontend)
+
 ## 🙋🏻팀원
 
 | **한동길** | **andendeun** | **xunapxa** | **ehguss** |
